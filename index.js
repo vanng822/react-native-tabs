@@ -49,6 +49,9 @@ class Tabs extends Component {
     };
 
     render(){
+        if (!this.props.children) {
+            return null;
+        }
         const self = this;
         let selected = this.props.selected
         let children = Array.isArray(this.props.children) ? this.props.children : [this.props.children];
