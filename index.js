@@ -51,8 +51,9 @@ class Tabs extends Component {
     render(){
         const self = this;
         let selected = this.props.selected
+        let children = Array.isArray(this.props.children) ? this.props.children : [this.props.children];
         if (!selected){
-            React.Children.forEach(this.props.children.filter(c=>c), el=>{
+            React.Children.forEach(children.filter(c=>c), el=>{
                 if (!selected || el.props.initial){
                     selected = el.props.name || el.key;
                 }
@@ -60,7 +61,7 @@ class Tabs extends Component {
         }
         return (
             <View style={[styles.tabbarView, this.props.style, this.state.keyboardUp && styles.hidden]}>
-                {React.Children.map(this.props.children.filter(c=>c),(el)=>
+                {React.Children.map(children.filter(c=>c),(el)=>
                     <TouchableOpacity key={el.props.name+"touch"}
                        testID={el.props.testID}
                        style={[styles.iconView, this.props.iconStyle, (el.props.name || el.key) == selected ? this.props.selectedIconStyle || el.props.selectedIconStyle || {} : {} ]}
